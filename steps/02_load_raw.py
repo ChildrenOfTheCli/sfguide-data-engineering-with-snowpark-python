@@ -31,8 +31,7 @@ def load_raw_table(session, tname=None, s3dir=None, year=None, schema=None):
         location = "@external.frostbyte_raw_stage/{}/{}/year={}".format(s3dir, tname, year)
     
     # we can infer schema using the parquet read option
-    df = session.read.option("compression", "snappy") \
-                            .parquet(location)
+    df = session.read.option("compression", "snappy").parquet(location)
     df.copy_into_table("{}".format(tname))
 
 # SNOWFLAKE ADVANTAGE: Warehouse elasticity (dynamic scaling)
@@ -79,3 +78,5 @@ if __name__ == "__main__":
 #    validate_raw_tables(session)
 
     session.close()
+
+
